@@ -40,8 +40,8 @@ def scan_for_cup():
     scan_direction = 1  # Start scanning clockwise
     while True:
         # Rotate the robot
-        left_motor.run(scan_direction * 300)
-        right_motor.run(-scan_direction * 300)
+        left_motor.run(scan_direction * 200)
+        right_motor.run(-scan_direction * 200)
         # Reverse scanning direction periodically
         scan_direction = -scan_direction  # Toggle direction
         wait(100)
@@ -66,6 +66,7 @@ def approach_cup():
         if block:
             x = block.x_center
             y = block.y_center
+            z = block.width
             # Center the robot with the cup
             if x < PIXEL_CENTER - CENTER_THRESHOLD:
                 left_motor.run(-SPEED // 2)
@@ -77,7 +78,7 @@ def approach_cup():
                 left_motor.run(SPEED)
                 right_motor.run(SPEED)  # Drive straight
             # Stop if close enough
-            if y >= APPROACH_DISTANCE:
+            if z >= APPROACH_DISTANCE:
                 left_motor.stop()
                 right_motor.stop()
                 return
